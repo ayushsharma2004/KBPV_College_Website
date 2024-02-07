@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Registration Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            /* align-items: center; */
+            justify-content: center;
+        }
+
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #loading-spinner {
+            border: 6px solid #4CAF50;
+            /* Loading spinner color */
+            border-top: 6px solid #f1f1f1;
+            /* Background color */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        hr {
+            margin-bottom: 24px;
+            /* margin-top: -8px; */
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: auto;
+            /* width: auto; */
+            text-align: left;
+            margin-top: 3rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group-full {
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: row;
+            text-wrap: nowrap;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            margin-right: 12px;
+            margin-left: 12px;
+        }
+
+        h4 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+
+        }
+
+        input:hover,
+        input:focus,
+        textarea:hover,
+        textarea:focus {
+            border-color: #4caf50;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 0 5px #33691e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <form>
+        <h2>Personal Information</h2>
+        <hr>
+
+        <div class="input-group">
+            <div class="input-group-full">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="fname" name="firstName" required>
+            </div>
+
+            <div class="input-group-full">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lname" name="lastName" required>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-full">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" id="phone" name="phoneNumber" required style="width: 14vw;">
+            </div>
+
+            <div class="input-group-full">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="input-group-full">
+                <label for="age">Age:</label>
+                <input type="number" min="18" max="110" id="age" name="age" required style="width: auto;">
+            </div>
+        </div>
+
+        <div class="input-group-full">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="1" required></textarea>
+        </div>
+
+        <h2>Education</h2>
+        <hr>
+
+        <div class="input-group">
+            <div class="input-group-full">
+                <label for="educationFrom">Education From:</label>
+                <input type="text" id="education" name="educationFrom">
+            </div>
+
+            <div class="input-group-full">
+                <label for="qualifications">Qualifications:</label>
+                <input type="text" id="education_desc" name="qualifications">
+            </div>
+        </div>
+
+        <div class="input-group-full">
+            <label for="fieldOfExpertise">Field of Expertise:</label>
+            <input type="text" id="expertise" name="fieldOfExpertise">
+        </div>
+
+        <div class="input-group-full">
+            <label for="description">Description about Teacher:</label>
+            <textarea id="description" name="description" rows="1"></textarea>
+        </div>
+
+        <hr>
+
+        <div class="input-group">
+            <div class="input-group-full">
+                <label for="standard">Standard:</label>
+                <input type="text" id="standard" name="standard">
+            </div>
+
+            <div class="input-group-full">
+                <label for="division">Division:</label>
+                <input type="text" id="division" name="division">
+            </div>
+        </div>
+
+        <div class="input-group-full">
+            <label for="experience">Experience:</label>
+            <input type="text" id="experience" name="experience">
+        </div>
+
+
+        <!-- Rest of the form content -->
+
+        <button type="button" onclick="registerTeacher()">Submit</button>
+    </form>
+    <script>
+        async function registerTeacher() {
+            try {
+                var fname = document.getElementById("fname").value;
+                var lname = document.getElementById("lname").value;
+                var email = document.getElementById("email").value;
+                var phone = document.getElementById("phone").value;
+                var age = document.getElementById("age").value;
+                var address = document.getElementById("address").value;
+                var education = document.getElementById("education").value;
+                var education_desc = document.getElementById("education_desc").value;
+                var expertise = document.getElementById("expertise").value;
+                var description = document.getElementById("description").value;
+                var standard = document.getElementById("standard").value;
+                var division = document.getElementById("division").value;
+                var experience = document.getElementById("experience").value;
+                var role = 1;
+                var loading = document.getElementById('loading-overlay').style.display = 'block';
+                const response = await axios.post('http://localhost:8080/api/v1/admin/register/teacher',
+                    {
+                        phone: phone,
+                        fname: fname,
+                        lname: lname,
+                        email: email,
+                        age: age,
+                        address: address,
+                        education: education,
+                        education_desc: education_desc,
+                        expertise: expertise,
+                        description: description,
+                        standard: standard,
+                        division: division,
+                        experience: experience,
+                        role: role
+                    });
+                var loading = document.getElementById('loading-overlay').style.display = 'none';
+                var data = response.data;
+                alert("Teacher Successfully Registered");
+                console.log(data);
+            } catch (error) {
+                console.error('Error loging teacher:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

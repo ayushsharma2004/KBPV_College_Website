@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ff1f1f;
+    color: white;
+    text-align: center;
+    padding: 4px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.event-card {
+    width: 350px;
+    margin: 18px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5%;
+    overflow: hidden;
+    position: relative;
+    /* Added position relative */
+}
+
+.event-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: transform 0.3s ease;
+    /* Added transition */
+}
+
+.event-info {
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 90%;
+    background: linear-gradient(rgba(0, 0, 0, 0.253), rgba(0, 0, 0, 0.795), rgb(0, 0, 0));
+    /* Added background color with transparency */
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    /* Added transition */
+}
+
+.event-card:hover img {
+    transform: scale(1.1);
+    /* Added scale transform on hover */
+}
+
+.event-card:hover .event-info {
+    transform: translateY(0);
+    /* Show the event info on hover */
+}
+
+.event-info h2 {
+    margin-top: 24px;
+    color: #ffffff;
+}
+
+.event-info p {
+    margin: 4px 0;
+    padding: 2px;
+    color: #ffffff9f;
+}

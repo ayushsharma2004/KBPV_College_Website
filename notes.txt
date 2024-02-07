@@ -1,0 +1,352 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Notes</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* font-family: 'Arial', sans-serif; */
+            background-color: #f7f7f7;
+            /* margin: 10px; */
+            text-align: left;
+        }
+
+        .container {
+            width: 100%;
+            margin-top: 4px;
+            background-color: #fff;
+            padding: 20px;
+            /* border-radius: 10px; */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+        h1 {
+            color: white;
+            text-align: left;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            height: 60px;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #left {
+            /* background: #000; */
+            width: auto;
+        }
+
+        #right {
+            /* background: #000; */
+            width: auto;
+        }
+
+        label {
+            font-size: 18px;
+            padding: 0 4px 0 12px;
+            /* padding-left: 12px; */
+        }
+
+        select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            /* margin-right: 10px; */
+            font-size: 14px;
+            /* margin-bottom: 10px; */
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            margin-left: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            padding: 8px 10px;
+            border: none;
+        }
+
+        .back-btn:hover {
+            background-color: #2d9431;
+        }
+
+        .back-btn:active {
+            background-color: #2d9431;
+            scale: -0.9;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+        }
+
+        .show-button {
+            padding: 8px 24px;
+            background-color: #4CAF50;
+            color: whitesmoke;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+
+
+        }
+
+        .show-button:hover {
+            background-color: #2d9431;
+        }
+
+        .arrow {
+            border: solid rgb(255, 255, 255);
+            border-width: 0 4px 4px 0;
+            display: inline-block;
+            padding: 4px;
+            margin: 8px 8px;
+            /* margin: 0 auto; */
+            /* Increased padding for visibility */
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+
+
+        .hidden {
+            display: none;
+        }
+
+
+        h1 {
+            color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        td a,
+        .upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: none;
+            font-size: 14px;
+        }
+
+        td a:hover,
+        .upload-button:hover {
+            background-color: #458ea0;
+        }
+
+        .upload-button {
+            margin-left: 10px;
+            z-index: -1;
+        }
+
+        .file {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="back-btn">
+            <i class="arrow left"></i>
+        </button>
+
+        <h1>Notes</h1>
+    </header>
+    <div class="container">
+        <form id="notesForm">
+            <form>
+                <div id="left">
+                    <label for="standard">Select Standard:</label>
+                    <select id="standard">
+                        <option value="1st">1st Standard</option>
+                        <option value="2nd">2nd Standard</option>
+                        <option value="3rd">3rd Standard</option>
+                        <option value="4th">4th Standard</option>
+                        <option value="5th">5th Standard</option>
+                        <option value="7th">7th Standard</option>
+                        <option value="8th">8th Standard</option>
+                        <option value="9th">9th Standard</option>
+                        <option value="10th">10th Standard</option>
+                    </select>
+
+                    <label for="subject">Select Subject:</label>
+                    <select id="subject">
+                        <option value="marathi">Marathi</option>
+                        <option value="english">English</option>
+                        <option value="math">Math</option>
+                        <option value="science">Science</option>
+                        <option value="history">History</option>
+                        <option value="geography">Geography</option>
+                        <option value="hindi">Hindi</option>
+
+                    </select>
+                </div>
+                <div id="right">
+                    <button type="button" class="show-button" onclick="showNotes()">Show Notes</button>
+                </div>
+            </form>
+            <!-- Your form content here -->
+        </form>
+        <div id="notesTable" class="hidden">
+            <table>
+                <tr>
+                    <th>STANDARD </th>
+                    <th>UPLOAD</th>
+                    <th>DOWNLOAD</th>
+                </tr>
+                <tr>
+                    <td>1st Standard</td>
+                    <input type="file" name="1st" id="1st" class="file">
+                    <td><button value="1st" class="upload-button" onclick="openFile(this.value)">UPLOAD</button>
+                    </td>
+                    <td><a href="1st_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>2nd Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="2nd_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>3rd Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="3rd_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>4th Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="4th_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>5th Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="5th_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>6th Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="6th_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>7th Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="7th_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>8th Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="8th_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>9th Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="9th_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+                <tr>
+                    <td>10th Standard</td>
+                    <input type="file" name="2nd" id="2nd" class="file">
+                    <td><button key="2nd" class="upload-button" onclick="openFile(this.key)">UPLOAD</button>
+                    <td><a href="10th_standard.pdf" target="_blank">DOWNLOAD</a></td>
+
+                </tr>
+
+
+            </table>
+            <!-- Your table content here -->
+        </div>
+    </div>
+
+    <script>
+        function showNotes() {
+            // Get references to the form and table elements
+            var form = document.getElementById('notesForm');
+            var table = document.getElementById('notesTable');
+
+            // Toggle the visibility of the form and table
+            table.classList.remove('hidden');
+
+        }
+        function openFile(value) {
+            console.log(value);
+            // Get references to the form and table elements
+            var file = document.getElementById(value);
+            console.log(file);
+
+            // Toggle the visibility of the form and table
+
+            file.click();
+        }
+        document.getElementById('1st').addEventListener('change', function () {
+            const selectedFile = this.files[0];
+            console.log(selectedFile ? selectedFile.name : '');
+        });
+    </script>
+</body>
+
+</html>

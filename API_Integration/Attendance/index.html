@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <button class="back-btn">
+            <i class="arrow left"></i>
+        </button>
+        <h1>Attendance</h1>
+    </header>
+
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <div class="container">
+        <h4>Select Class</h4>
+        <form>
+            <label id="selectOption">Standard:</label>
+            <select id="standard" name="selectOption">
+                <option value="">Select a Standard</option>
+                <option value="1">1st Standard</option>
+                <option value="2">2nd Standard</option>
+                <option value="3">3th Standard</option>
+                <option value="4">4th Standard</option>
+                <option value="5">5th Standard</option>
+                <option value="6">6th Standard</option>
+                <option value="7">7th Standard</option>
+                <option value="8">8th Standard</option>
+                <option value="9">9th Standard</option>
+                <option value="10">10th Standard</option>
+
+            </select>
+            <label id="divisionSelect">Division:</label>
+            <select id="division" name="divisionSelect">
+                <option value="">Division</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+            </select>
+        </form>
+        <button onclick="getAttendance()" type="submit">Submit </button>
+    </div>
+    <div class="attendance_table" id="attendance_container">
+    </div>
+</body>
+
+</html>

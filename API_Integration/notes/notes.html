@@ -1,0 +1,418 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Notes</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* font-family: 'Arial', sans-serif; */
+            background-color: #f7f7f7;
+            /* margin: 10px; */
+            text-align: left;
+        }
+
+        .container {
+            width: 100%;
+            margin-top: 4px;
+            background-color: #fff;
+            padding: 20px;
+            /* border-radius: 10px; */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+        h1 {
+            color: white;
+            text-align: left;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            height: 60px;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #left {
+            /* background: #000; */
+            width: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .subjects {
+            margin-left: 1vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        #right {
+            /* background: #000; */
+            width: auto;
+        }
+
+        label {
+            font-size: 18px;
+            padding: 0 4px 0 12px;
+            /* padding-left: 12px; */
+        }
+
+        select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            /* margin-right: 10px; */
+            font-size: 14px;
+            /* margin-bottom: 10px; */
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            margin-left: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            padding: 8px 10px;
+            border: none;
+        }
+
+        .back-btn:hover {
+            background-color: #2d9431;
+        }
+
+        .back-btn:active {
+            background-color: #2d9431;
+            scale: -0.9;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+        }
+
+        .show-button {
+            padding: 8px 24px;
+            background-color: #4CAF50;
+            color: whitesmoke;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+
+
+        }
+
+        .show-button:hover {
+            background-color: #2d9431;
+        }
+
+        .arrow {
+            border: solid rgb(255, 255, 255);
+            border-width: 0 4px 4px 0;
+            display: inline-block;
+            padding: 4px;
+            margin: 8px 8px;
+            /* margin: 0 auto; */
+            /* Increased padding for visibility */
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+            /* display: flex; */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        h1 {
+            color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        td a,
+        .upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: none;
+            font-size: 14px;
+        }
+
+        td a:hover,
+        .upload-button:hover {
+            background-color: #458ea0;
+        }
+
+        .upload-button {
+            margin-left: 10px;
+            z-index: -1;
+        }
+
+        .file {
+            display: none;
+        }
+
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #loading-spinner {
+            border: 6px solid #4CAF50;
+            /* Loading spinner color */
+            border-top: 6px solid #f1f1f1;
+            /* Background color */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <header id="header">
+        <button class="back-btn">
+            <i class="arrow left"></i>
+        </button>
+
+        <h1>Notes</h1>
+    </header>
+    <div class="container">
+        <form id="notesForm">
+            <form>
+                <div id="left">
+                    <label for="standard">Select Standard:</label>
+                    <select id="standard" onchange="getSubjects()">
+                        <option value="">Select a Standard</option>
+                        <option value="1st">1st Standard</option>
+                        <option value="2nd">2nd Standard</option>
+                        <option value="3rd">3rd Standard</option>
+                        <option value="4th">4th Standard</option>
+                        <option value="5th">5th Standard</option>
+                        <option value="7th">7th Standard</option>
+                        <option value="8th">8th Standard</option>
+                        <option value="9th">9th Standard</option>
+                        <option value="10th">10th Standard</option>
+                    </select>
+                    <div class="subjects" id="subjects"></div>
+                </div>
+                <div id="right">
+                    <button type="button" class="show-button" onclick="showNotes()">Show Notes</button>
+                </div>
+            </form>
+            <!-- Your form content here -->
+        </form>
+        <div id="notesTable" class="">
+            <!-- Your table content here -->
+        </div>
+    </div>
+
+    <script>
+        function openFile(value) {
+            console.log(value);
+            // Get references to the form and table elements
+            var file = document.getElementById(value);
+            console.log(file);
+
+            // Toggle the visibility of the form and table
+
+            file.click();
+        }
+
+        async function getSubjects() {
+            const value = document.getElementById('standard').value;
+            var subjectsHtml = document.getElementById('subjects');
+            try {
+                if (value === '') {
+                    subjectsHtml.innerHTML = '';
+                    return;
+                }
+                console.log(value);
+                var loading = document.getElementById('loading-overlay').style.display = 'block';
+                const response = await axios.post('http://localhost:8080/api/v1/teacher/read-subjects',
+                    {
+                        standard: value
+                    });
+                console.log(response.data.subjects);
+                var subjects = response.data.subjects;
+                var loading = document.getElementById('loading-overlay').style.display = 'none';
+                var subjectSelect = '                <label for="subject">Select Subject:</label>';
+                subjectSelect += '                    <select id="subject">';
+                subjects.forEach(subject => {
+                    console.log(subject);
+                    subjectSelect += '                        <option value="' + subject + '">' + subject + '</option>';
+                });
+                subjectSelect += '                    </select>';
+                subjectsHtml.innerHTML = subjectSelect;
+            } catch (error) {
+                console.error('Error reading subjects:', error);
+            }
+            console.log(value);
+        }
+
+        async function showNotes() {
+            var notesTable = document.getElementById('notesTable');
+            var standard = document.getElementById('standard').value;
+            var subject = document.getElementById('subject').value;
+            console.log("standard:", standard, "subject:", subject);
+            if (standard === '' || subject === '') {
+                alert("Select standard and subject");
+                return
+            }
+            var loading = document.getElementById('loading-overlay').style.display = 'block';
+            var tableHtml = "<table >                <tr>                    <th>Chapter </th>                    <th>UPLOAD</th>                    <th>DOWNLOAD</th>               </tr>"
+            try {
+                const response = await axios.post('http://localhost:8080/api/v1/teacher/read-chapters',
+                    {
+                        "standard": standard,
+                        "subject": subject
+                    }
+                );
+                var data = response.data.chapters;
+                var loading = document.getElementById('loading-overlay').style.display = 'none';
+                console.log(data);
+                data.forEach(chapter => {
+                    var chapter_name = chapter.chapter_name;
+                    var chapter_url = chapter.chapter_url;
+                    console.log(chapter_url);
+                    var status = true;
+                    if (chapter_url === '') {
+                        console.log(chapter_url);
+                        status = false
+                        chapter_url = "javascript:void(0);";
+                    }
+                    tableHtml += '            <tr>';
+                    tableHtml += '                <td>' + chapter_name + '</td>';
+                    tableHtml += '                <input type="file" name="' + chapter_name + '" id="' + chapter_name + '" class="file" onchange="uploadNotes(event, \'' + standard + '\', \'' + subject + '\')">';
+                    tableHtml += '                <td><button value="' + chapter_name + '" class="upload-button" onclick="openFile(this.value)">UPLOAD</button>';
+                    tableHtml += '                <td><a href="' + chapter_url + '" id="link' + chapter_name + '" target="_blank" onclick="return ' + status + '">DOWNLOAD</a></td>';
+                    tableHtml += '            </tr>';
+                });
+                tableHtml += '</table>';
+                notesTable.innerHTML = tableHtml;
+                console.log(data);
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        }
+
+
+        async function uploadNotes(event, standard, subject) {
+            var fileId = event.target.id;
+            const selectedFile = event.target.files[0];
+            console.log(selectedFile ? selectedFile.name : '');
+            console.log("standard:", standard, "subject:", subject);
+            console.log(standard + subject + fileId);
+
+            // Use the selected file for further processing, for example, sending it to the server
+            const formData = new FormData();
+            formData.append('standard', standard);
+            formData.append('subject', subject);
+            formData.append('chapter', fileId);
+            formData.append('folder_path', "notes/");
+            formData.append('chapter-notes', selectedFile);
+
+            var loading = document.getElementById('loading-overlay').style.display = 'block';
+            try {
+                const response = await axios.post('http://localhost:8080/api/v1/teacher/upload-notes', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                console.log(response.data);
+                var loading = document.getElementById('loading-overlay').style.display = 'none';
+                var linkId = 'link' + fileId;
+                var link = document.getElementById(linkId);
+                console.log(link);
+                link.href = response.data.chapter_url[0];
+                link.onclick = "return true";
+                alert("Uploaded Successfully");
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        };
+
+    </script>
+</body>
+
+</html>

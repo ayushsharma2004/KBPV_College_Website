@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYLLABUS</title>
+    <!-- Add this script tag in your HTML file -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            /* font-family: 'Arial', sans-serif;*/
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #4cccdd;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        td a,
+        .upload-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: none;
+        }
+
+        td a:hover,
+        .upload-button:hover {
+            background-color: #458ea0;
+        }
+
+        .upload-button {
+            margin-left: 10px;
+        }
+
+        h1 {
+            color: white;
+            text-align: left;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            height: 60px;
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            margin-left: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            padding: 8px 10px;
+            border: none;
+        }
+
+        .back-btn:hover {
+            background-color: #2d9431;
+        }
+
+        .back-btn:active {
+            background-color: #2d9431;
+            scale: -0.9;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+        }
+
+        .arrow {
+            border: solid rgb(255, 255, 255);
+            border-width: 0 4px 4px 0;
+            display: inline-block;
+            padding: 4px;
+            margin: 8px 8px;
+            /* margin: 0 auto; */
+            /* Increased padding for visibility */
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+
+        .file {
+            display: none;
+        }
+
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #loading-spinner {
+            border: 6px solid #4CAF50;
+            /* Loading spinner color */
+            border-top: 6px solid #f1f1f1;
+            /* Background color */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body onload="readSyllabus()">
+
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <header>
+        <button class="back-btn">
+            <i class="arrow left"></i>
+        </button>
+        <h1>SYLLABUS</h1>
+    </header>
+    <div class="container" id="container">
+    </div>
+    <script>
+
+        function openFile(value) {
+            console.log(value);
+            // Get references to the form and table elements
+            var file = document.getElementById(value);
+            console.log(file);
+
+            // Toggle the visibility of the form and table
+
+            file.click();
+        }
+
+        async function readSyllabus() {
+            var container = document.getElementById('container');
+            var loading = document.getElementById('loading-overlay').style.display = 'block';
+            var tableHtml = "<table >                <tr>                    <th>STANDARD </th>                    <th>UPLOAD</th>                    <th>DOWNLOAD</th>               </tr>"
+            try {
+                const response = await axios.get('http://localhost:8080/api/v1/teacher/read-syllabus', {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                var data = response.data.syllabus;
+                var loading = document.getElementById('loading-overlay').style.display = 'none';
+                data.forEach(syllabus => {
+                    var standard = syllabus.standard;
+                    var url = syllabus.url[0];
+                    console.log(url);
+                    tableHtml += '            <tr>';
+                    tableHtml += '                <td>' + standard + ' Standard</td>';
+                    tableHtml += '                <input type="file" name="' + standard + '" id="' + standard + '" class="file" onchange="uploadSyllabus(event)">';
+                    tableHtml += '                <td><button value="' + standard + '" class="upload-button" onclick="openFile(this.value)">UPLOAD</button>';
+                    tableHtml += '                <td><a href="' + url + '" id="link' + standard + '" target="_blank">DOWNLOAD</a></td>';
+                    tableHtml += '            </tr>';
+                });
+                tableHtml += '</table>';
+                container.innerHTML = tableHtml;
+                console.log(data);
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        }
+
+        async function uploadSyllabus(event) {
+            var fileId = event.target.id;
+            const selectedFile = event.target.files[0];
+            console.log(selectedFile ? selectedFile.name : '');
+
+            // Use the selected file for further processing, for example, sending it to the server
+            const formData = new FormData();
+            formData.append('standard', fileId);
+            formData.append('folder_path', "syllabus/");
+            formData.append('syllabus', selectedFile);
+
+            var loading = document.getElementById('loading-overlay').style.display = 'block';
+
+            try {
+                const response = await axios.post('http://localhost:8080/api/v1/teacher/upload-syllabus', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                console.log(response.data.syllabusUrl[0]);
+                var loading = document.getElementById('loading-overlay').style.display = 'none';
+                var linkId = 'link' + fileId;
+                var link = document.getElementById(linkId);
+                link.href = response.data.syllabusUrl[0];
+                alert("Uploaded Successfully");
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        };
+
+    </script>
+</body>
+
+</html>

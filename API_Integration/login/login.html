@@ -1,0 +1,399 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        hr {
+            margin: 34px 0 24px 0;
+            height: 1px;
+            background: rgba(94, 94, 94, 0.563);
+        }
+
+        #container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 420px;
+            text-align: center;
+        }
+
+        #container #logo {
+            height: 260px;
+            width: 90%;
+            margin: 0 auto;
+            letter-spacing: -1px;
+            /* font-weight:; */
+            /* background: #000; */
+            /* color: white; */
+            font-size: 34px;
+            /* border-radius: 50%; */
+            /* margin: 0 auto; */
+            /* margin-bottom: 12px; */
+            /* background: white; */
+            /* display: flex; */
+        }
+
+        #container img {
+            height: 160px;
+            width: 160px;
+            padding: 0;
+            margin-bottom: -48px;
+        }
+
+        #container h2 {
+            font-size: 30px;
+            letter-spacing: 0px;
+            margin-top: -8px;
+            margin-bottom: 18px;
+            color: #464646;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 14px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+
+        input:hover[type="text"],
+        input:hover[type="tel"],
+        input:hover[type="password"] {
+            border-color: #888;
+        }
+
+        input:focus[type="text"],
+        input:focus[type="tel"],
+        input:focus[type="password"] {
+            border-color: #4caf50;
+            box-shadow: 0 0 5px #4caf50;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 10px;
+            justify-content: space-between;
+            color: rgb(63, 63, 63);
+            padding: 0 18px;
+        }
+
+        .toggle-switch {
+            appearance: none;
+            background-color: #ccc;
+            border: none;
+            border-radius: 20px;
+            margin-top: 0px;
+            width: 40px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch:checked {
+            background-color: #4caf50;
+        }
+
+        .toggle-switch::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch:checked::before {
+            transform: translateX(20px);
+        }
+
+        .toggle-switch:active::before {
+            transform: translateX(20px);
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 0 5px #33691e;
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 600px) {
+            #container {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #container {
+                width: 82%;
+            }
+
+        }
+
+        @media (max-height: 600px) {
+            #container {
+                width: 90%;
+                max-width: none;
+            }
+
+            #container #logo {
+                height: 80px;
+            }
+
+            #container h2 {
+                font-size: 20px;
+            }
+
+            input {
+                font-size: 12px;
+            }
+
+            label,
+            .toggle-container {
+                font-size: 12px;
+            }
+        }
+
+        #loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #loading-spinner {
+            border: 6px solid #4CAF50;
+            /* Loading spinner color */
+            border-top: 6px solid #f1f1f1;
+            /* Background color */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="loading-overlay">
+        <div id="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <div id="container">
+        <input type="checkbox" name="" id="check" style="display: none;">
+        <form action="" id="login_form">
+            <div id="logo">
+                <img src="../../images/schoolLogoHd.png" alt="">
+                <h4>Karmveer Bhauroa Patil Vidyalaya</h4>
+            </div>
+            <hr>
+            <h2>Login</h2>
+            <input type="tel" placeholder="Enter your Mobile Number" id="phone" />
+            <input type="text" maxlength="6" placeholder="Enter OTP" id="otp" />
+            <label>
+                <div class="toggle-container">
+                    Are you a Teacher at KBPV ?
+                    <label class="switch">
+                        <input type="checkbox" class="toggle-switch" id="isTeacher" />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </label>
+            <button type="button" id="btn" onclick="button(event)">Get OTP</button>
+        </form>
+    </div>
+    <script>
+        var otp = document.getElementById('otp');
+        var btn = document.getElementById('btn');
+        var check = document.getElementById('check');
+        otp.disabled = true;
+        async function button(e) {
+            e.preventDefault();
+            var isTeacher = document.getElementById('isTeacher').checked;
+            check.click();
+            if (isTeacher) {
+                if (check.checked) {
+                    await getOtpTeacher()
+                } else {
+                    await verifyOtpTeacher();
+                }
+            } else {
+                if (check.checked) {
+                    await getOtpStudent()
+                } else {
+                    await verifyOtpStudent();
+                }
+            }
+        }
+
+        async function getOtpTeacher() {
+            try {
+                var phone = document.getElementById('phone').value;
+                var isTeacher = document.getElementById('isTeacher').checked;
+
+                var loading = document.getElementById('loading-overlay').style.display = 'block';
+                console.log(phone, isTeacher);
+                if (isTeacher) {
+                    const response = await axios.post('http://localhost:8080/api/v1/auth/send-otp',
+                        {
+                            phone: phone
+                        });
+                    var loading = document.getElementById('loading-overlay').style.display = 'none';
+                    var getOtpData = response.data;
+                    console.log(getOtpData);
+                    otp.disabled = false;
+                    btn.textContent = 'Verify OTP'
+                }
+            } catch (error) {
+                console.error('Error get teacher otp:', error);
+            }
+        }
+
+        async function getOtpStudent() {
+            try {
+                var phone = document.getElementById('phone').value;
+                var isTeacher = document.getElementById('isTeacher').checked;
+                var loading = document.getElementById('loading-overlay').style.display = 'block';
+                console.log(phone, isTeacher);
+                if (!isTeacher) {
+                    const response = await axios.post('http://localhost:8080/api/v1/auth/send-otp',
+                        {
+                            phone: phone
+                        });
+                    var getOtpData = response.data;
+                    var loading = document.getElementById('loading-overlay').style.display = 'none';
+                    console.log(getOtpData);
+                    otp.disabled = false;
+                    btn.textContent = 'Verify OTP'
+                }
+            } catch (error) {
+                console.error('Error get student otp:', error);
+            }
+        }
+
+        async function verifyOtpTeacher() {
+            console.log('verify');
+            try {
+                var phone = document.getElementById('phone').value;
+                var isTeacher = document.getElementById('isTeacher').checked;
+                var loading = document.getElementById('loading-overlay').style.display = 'block';
+                if (isTeacher) {
+                    const response = await axios.post('http://localhost:8080/api/v1/auth/login/teacher',
+                        {
+                            phone: phone,
+                            code: otp.value,
+                            role: 1
+                        });
+                    var verifyData = response.data;
+                    var loading = document.getElementById('loading-overlay').style.display = 'none';
+                    console.log(verifyData);
+                    otp.disabled = true;
+                    btn.textContent = 'Get OTP';
+                    alert("Login Successfully");
+                }
+            } catch (error) {
+                console.error('Error loging teacher:', error);
+            }
+        }
+
+        async function verifyOtpStudent() {
+            console.log('verify');
+            try {
+                var phone = document.getElementById('phone').value;
+                var isTeacher = document.getElementById('isTeacher').checked;
+                var loading = document.getElementById('loading-overlay').style.display = 'block';
+                if (!isTeacher) {
+                    const response = await axios.post('http://localhost:8080/api/v1/auth/login/student',
+                        {
+                            phone: phone,
+                            code: otp.value,
+                            role: 1
+                        });
+                    var verifyData = response.data;
+                    var loading = document.getElementById('loading-overlay').style.display = 'none';
+                    console.log(verifyData);
+                    otp.disabled = true;
+                    btn.textContent = 'Get OTP';
+                    alert("Login Successfully");
+                }
+            } catch (error) {
+                console.error('Error loging students:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>
