@@ -1,0 +1,126 @@
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import '../Styles/syllabus.css'
+import { NavLink } from 'react-router-dom';
+
+const Attendance = () => {
+    const [getData, setGet] = useState(null);
+    // readSyllabus();
+    useEffect(() => {
+        readSyllabus(); // Fetch syllabus data when the component mounts
+    }, []);
+
+    function openFile(value) {
+        console.log(value);
+        // Get references to the form and table elements
+        var file = document.getElementById(value);
+        console.log(file);
+
+        // Toggle the visibility of the form and table
+
+        file.click();
+    }
+
+    async function readSyllabus() {
+        console.log('reading');
+        try {
+            const response = await axios.get('http://localhost:8080/api/v1/teacher/read-syllabus', {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            var data = response.data.syllabus;
+            setGet(data);
+            console.log(data);
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    }
+
+    async function uploadSyllabus(value) {
+        console.log(document.getElementById(value));
+        var fileId = document.getElementById(value).id;
+        const selectedFile = document.getElementById(value).files[0];
+        console.log(selectedFile ? selectedFile.name : '');
+
+        // Use the selected file for further processing, for example, sending it to the server
+        const formData = new FormData();
+        formData.append('standard', fileId);
+        formData.append('folder_path', "syllabus/");
+        formData.append('syllabus', selectedFile);
+
+        var loading = document.getElementById('loading-overlay').style.display = 'block';
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/v1/teacher/upload-syllabus', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            console.log(response.data.syllabusUrl[0]);
+            document.getElementById('loading-overlay').style.display = 'none';
+            var linkId = 'link' + fileId;
+            var link = document.getElementById(linkId);
+            link.href = response.data.syllabusUrl[0];
+            readSyllabus();
+            alert("Uploaded Successfully");
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        }
+    };
+    return (
+        <>
+            <div className='syllabus_container' onLoad={() => readSyllabus()}>
+
+                <div>
+                    <div id="loading-overlay">
+                        <div id="loading-spinner" />
+                        <p>Loading...</p>
+                    </div>
+                    <header>
+                        <button className="back-btn">
+                            <i className="arrow left" />
+                        </button>
+                        <h1>SYLLABUS</h1>
+                    </header>
+                </div>
+                <div className="syllabus_table" id="syllabus_table">
+                    {getData ? (
+                        <>
+                            <table id="attendanceTable">
+                                <thead>
+                                    <tr>
+                                        <th>Standard</th>
+                                        <th>Upload</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {getData.map((syllabus, index) => (
+                                        <tr key={index}>
+                                            <td>{syllabus.standard} Standard</td>
+                                            {/* eslint-disable-next-line no-restricted-globals */}
+                                            <input type="file" id={syllabus.standard} className="file" onChange={() => uploadSyllabus(syllabus.standard)} />
+                                            <td>
+                                                <button className="upload-button" onClick={() => openFile(syllabus.standard)}>UPLOAD</button>
+                                            </td>
+                                            <td><NavLink to={syllabus.url[0]} id={`link${syllabus.standard}`} target="_blank">DOWNLOAD</NavLink></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </>
+                    ) : (
+                        <p>No data available</p>
+                    )}
+
+                </div>
+
+            </div>
+
+        </>
+    )
+}
+
+export default Attendance

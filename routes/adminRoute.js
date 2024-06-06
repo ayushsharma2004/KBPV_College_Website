@@ -1,5 +1,5 @@
 import express from 'express';
-import { isAdmin } from '../middleware/authMiddleware.js';
+import { isAdmin, isTeacher, requireSignIn } from '../middleware/authMiddleware.js';
 import { standardsRegisterController, studentRegisterController, teachersRegisterController, viewStudentController, viewTeacherController } from '../controller/adminController.js';
 
 
@@ -15,7 +15,7 @@ const router = express.Router();
 router.post('/register/student', studentRegisterController);
 router.post('/view/student', viewStudentController);
 router.post('/register/teacher', teachersRegisterController);
-router.get('/view/teacher', viewTeacherController);
+router.post('/view/teacher', requireSignIn, isTeacher, viewTeacherController);
 router.post('/register/standard', standardsRegisterController);
 
 export default router;

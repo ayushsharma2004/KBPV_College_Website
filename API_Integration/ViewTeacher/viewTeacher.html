@@ -1,0 +1,274 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher details </title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* font-family: 'Arial', sans-serif; */
+            background-color: #f7f7f7;
+            /* margin: 10px; */
+            text-align: left;
+        }
+
+        .viewTeacher_container {
+            width: 100%;
+            margin-top: 4px;
+            background-color: #fff;
+            padding: 20px;
+            /* border-radius: 10px; */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+        h1 {
+            color: white;
+            text-align: left;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .viewTeacher_header {
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            height: 60px;
+        }
+
+        #left {
+            /* background: #000; */
+            width: auto;
+        }
+
+        #right {
+            /* background: #000; */
+            width: auto;
+        }
+
+        label {
+            font-size: 18px;
+            padding: 0 4px 0 12px;
+            /* padding-left: 12px; */
+        }
+
+        select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            /* margin-right: 10px; */
+            font-size: 14px;
+            /* margin-bottom: 10px; */
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            margin-left: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            padding: 8px 10px;
+            border: none;
+        }
+
+        .back-btn:hover {
+            background-color: #2d9431;
+        }
+
+        .back-btn:active {
+            background-color: #2d9431;
+            scale: -0.9;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+        }
+
+        .show-button {
+            padding: 8px 24px;
+            background-color: #4CAF50;
+            color: whitesmoke;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+
+
+        }
+
+        .show-button:hover {
+            background-color: #2d9431;
+        }
+
+        .arrow {
+            border: solid rgb(255, 255, 255);
+            border-width: 0 4px 4px 0;
+            display: inline-block;
+            padding: 4px;
+            margin: 8px 8px;
+            /* margin: 0 auto; */
+            /* Increased padding for visibility */
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+
+
+        .hidden {
+            display: none;
+        }
+
+
+        h1 {
+            color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+
+
+        .file {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="viewTeacher">
+        <div class="viewTeacher_header">
+            <button class="back-btn"><i class="arrow left"></i></button>
+            <h1>Teachers Details</h1>
+        </div>
+        <div class="viewTeacher_container">
+            <div id="right"><button type="button" class="show-button" onclick="showDetails()">Show Details</button>
+            </div>
+            <div id="notesTable" class="hidden">
+                <table id="teachersTable">
+                    <tr>
+                        <th>SR. NO</th>
+                        <th>TEACHERS NAME</th>
+                        <th>MOBILE NUMBER</th>
+                        <th>AGE</th>
+                        <th>WORK EXPERIENCE</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>NATASHA MAM</td>
+                        <td>5463712815</td>
+                        <td>29</td>
+                        <td>2YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>SANGEETA MAM</td>
+                        <td>9563828633</td>
+                        <td>32</td>
+                        <td>10YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>SNEHA MAM</td>
+                        <td>5397569213</td>
+                        <td>30</td>
+                        <td>2YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>PRASADH SIR</td>
+                        <td>9878864628</td>
+                        <td>35</td>
+                        <td>8YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>PRADEEP SIR</td>
+                        <td>9757836583</td>
+                        <td>34</td>
+                        <td>4YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>PATIL SIR</td>
+                        <td>5498545334</td>
+                        <td>40</td>
+                        <td>15YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>SUPRIYA MAM</td>
+                        <td>9567989663</td>
+                        <td>38</td>
+                        <td>12YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>MAYA MAM</td>
+                        <td>5397888646</td>
+                        <td>40</td>
+                        <td>14YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>IMRAN SIR</td>
+                        <td>9899588628</td>
+                        <td>38</td>
+                        <td>10YEARS</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>VIDYA SIR</td>
+                        <td>9757836583</td>
+                        <td>38</td>
+                        <td>12YEARS</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showDetails() {
+            // Get references to the form and table elements
+            var table = document.getElementById('notesTable');
+
+            // Toggle the visibility of the form and table
+            table.classList.remove('hidden');
+
+        }
+    </script>
+</body>
+
+</html>

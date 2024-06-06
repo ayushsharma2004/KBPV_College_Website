@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="shortcut icon" href="./images/logo.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="dash.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo" title="University Management System">
+            <img src="./images/logo.png" alt="">
+            <h2>U<span class="danger">M</span>S</h2>
+        </div>
+        <div class="navbar">
+            <a href="index.html" class="active">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+            <a href="timetable.html" onclick="timeTableAll()">
+                <span class="material-icons-sharp">today</span>
+                <h3>Time Table</h3>
+            </a>
+            <a href="exam.html">
+                <span class="material-icons-sharp">grid_view</span>
+                <h3>Examination</h3>
+            </a>
+            <a href="password.html">
+                <span class="material-icons-sharp">password</span>
+                <h3>Change Password</h3>
+            </a>
+            <a href="#">
+                <span class="material-icons-sharp" onclick="">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+
+    </header>
+    <div class="container">
+        <aside>
+            <div class="profile">
+                <div class="top">
+                    <div class="profile-photo">
+                        <img src="./images/profile-1.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <p>Hey, <b>AYUSH</b> </p>
+                        <small class="text-muted">12102030</small>
+                    </div>
+                </div>
+                <div class="about">
+                    <h5>Student Dashboard</h5>
+                    <p>Karmaveer Bhaurao Patil Vidyalaya website</p>
+                    <h5>DOB</h5>
+                    <p>29-Feb-2020</p>
+                    <h5>Contact</h5>
+                    <p>1234567890</p>
+                    <h5>Email</h5>
+                    <p>unknown@gmail.com</p>
+                    <h5>Address</h5>
+                    <p>Mumbai</p>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <h1>Dashboard</h1>
+            <div class="subjects">
+                <div class="eg">
+                    <span class="material-icons-sharp">architecture</span>
+                    <h3>English</h3>
+                </div>
+                <div class="mth">
+                    <span class="material-icons-sharp">functions</span>
+                    <h3>Hindi</h3>
+                </div>
+                <div class="cs">
+                    <span class="material-icons-sharp">computer</span>
+                    <h3>Marathi</h3>
+                </div>
+                <div class="cg">
+                    <span class="material-icons-sharp">dns</span>
+                    <h3>Science</h3>
+                </div>
+                <div class="net">
+                    <span class="material-icons-sharp">router</span>
+                    <h3>Maths</h3>
+                </div>
+            </div>
+            <h1>Attendance of Student</h1>
+            <div class="progress-circle">
+                <div class="progress"></div>
+                <div class="fill"></div>
+                <div class="text">100%</div>
+            </div>
+            <h3>Total Lectures Attendance</h3>
+
+            <div class="progress-circle">
+                <div class="progress"></div>
+                <div class="fill fill-75"></div>
+                <div class="text">75%</div>
+            </div>
+            <h3>Lectures Attend by Student</h3>
+
+
+            <div class="progress-circle">
+                <div class="progress"></div>
+                <div class="fill fill-75"></div>
+                <div class="text">75%</div>
+            </div>
+            <h3>Percentage of Attendance</h3>
+
+    </div>
+    </main>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+header {
+    position: absolute;
+    width: 100%;
+    min-height: 120px;
+    /* background: #69b1f0; */
+    /* background: #fff; */
+    background: #fcfcfc;
+    padding: 0 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+header .Logo {
+    color: #fff;
+    font-size: 1.75em;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.Logo img {
+    display: flex;
+    height: 100px;
+    width: 100px;
+    /* height: 100%; */
+    /* width: 100%; */
+    padding: 0;
+    margin-right: 24px;
+}
+
+header ul {
+    position: relative;
+}
+
+header ul li {
+    position: relative;
+    list-style: none;
+    float: left;
+}
+
+header ul li a {
+    /* color: #fff; */
+    /* color: #000; */
+    color: #2d328e85;
+    font-size: 1.1em;
+    padding: 20px 20px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+header ul li #login-btn {
+    color: #fff;
+
+    /* color: #000; 
+    color: #2b93e3;  */
+    font-weight: 900;
+    font-size: 1.1em;
+    padding: 20px 48px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    /* background: #2b93e3; */
+    background: #2d328e85;
+
+    /* border-radius: 4px; */
+    margin-left: 50px;
+    /* letter-spacing: 1.6px; */
+}
+
+header ul li #login-btn:hover {
+    background: #fff;
+    color: #2d328e85;
+}
+
+header ul li #login-btn:active {
+    scale: 0.95;
+    /* transition: 6ms linear ease; */
+}
+
+header ul li #logout-btn {
+    color: #fff;
+    /* color: #000; */
+    /* color: #2b93e3; */
+    font-size: 1.1em;
+    padding: 20px 48px;
+    font-weight: 900;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    background: #2d328e85;
+    border-radius: 4px;
+    margin-left: 24px;
+}
+
+header ul li #logout-btn:hover {
+    color: #2d328e85;
+    background: #fff;
+}
+
+header ul li a:hover {
+    /* background: #2b93e3; */
+    outline: 1px solid #2d328e85;
+    transition-property: background;
+    transition-duration: 100ms;
+    transition-timing-function: linear;
+}
+
+header ul li ul {
+    position: absolute;
+    left: 0;
+    width: 200px;
+    background: #fcfcfc;
+    display: none;
+    transition: all 1s;
+}
+
+header ul li:hover>ul {
+    display: initial;
+}
+
+header ul li ul li {
+    position: relative;
+    width: 100%;
+    left: 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+header ul li ul li ul {
+    top: 0;
+    left: 167px;
+}
+
+@media screen and (max-width: 900px) {
+    header {
+        padding: 10px 20px;
+    }
+
+    header nav {
+        position: absolute;
+        width: 100%;
+        top: 66px;
+        left: 0;
+        background: #445964;
+        display: none;
+    }
+
+    header.active nav {
+        display: initial;
+    }
+
+    header nav ul li {
+        width: 100%;
+    }
+
+    header nav ul li ul {
+        position: relative;
+        width: 100%;
+        left: 0;
+    }
+
+    header ul li ul li ul {
+        top: 0;
+        left: 0;
+    }
+
+    header nav ul li:hover ul li {
+        background: #546e7b;
+    }
+
+    .menuToggle {
+        position: relative;
+        width: 40px;
+        height: 50px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menuToggle::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        background: #fff;
+        transform: translateY(-12px);
+        box-shadow: 0 12px #fff;
+    }
+
+    .menuToggle::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        background: #fff;
+        transform: translateY(12px);
+    }
+
+    header.active .menuToggle::before {
+        transform: rotate(45deg);
+        box-shadow: 0 0 #fff;
+    }
+
+    header.active .menuToggle::after {
+        transform: rotate(315deg);
+    }
+
+}

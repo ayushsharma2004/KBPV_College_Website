@@ -1,0 +1,324 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDENT details </title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* font-family: 'Arial', sans-serif; */
+            background-color: #f7f7f7;
+            /* margin: 10px; */
+            text-align: left;
+        }
+
+        .container {
+            width: 100%;
+            margin-top: 4px;
+            background-color: #fff;
+            padding: 20px;
+            /* border-radius: 10px; */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+        h1 {
+            color: white;
+            text-align: left;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        header {
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            height: 60px;
+        }
+
+        #left {
+            /* background: #000; */
+            width: auto;
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+        }
+
+        .right {
+            /* background: #000; */
+            width: auto;
+            margin-left: 50vw;
+            font-size: 65px;
+        }
+
+        label {
+            font-size: 18px;
+            padding: 0 4px 0 12px;
+            /* padding-left: 12px; */
+        }
+
+        select {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: black;
+            background-color: rgb(255, 255, 255);
+            /* margin-right: 10px; */
+            font-size: 14px;
+            /* margin-bottom: 10px; */
+        }
+
+        .back-btn {
+            width: 44px;
+            height: 44px;
+            margin-left: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            padding: 8px 10px;
+            border: none;
+        }
+
+        .back-btn:hover {
+            background-color: #2d9431;
+        }
+
+        .back-btn:active {
+            background-color: #2d9431;
+            scale: -0.9;
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+        }
+
+        .show-button {
+            padding: 8px 35px;
+            background-color: #4CAF50;
+            color: whitesmoke;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+
+        }
+
+        .show-button:hover {
+            background-color: #2d9431;
+        }
+
+        .arrow {
+            border: solid rgb(255, 255, 255);
+            border-width: 0 4px 4px 0;
+            display: inline-block;
+            padding: 4px;
+            margin: 8px 8px;
+            /* margin: 0 auto; */
+            /* Increased padding for visibility */
+        }
+
+        .left {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
+
+
+        .hidden {
+            display: none;
+        }
+
+
+        h1 {
+            color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+
+
+        .file {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button class="back-btn">
+            <i class="arrow left"></i>
+        </button>
+
+        <h1>STUDENT Details</h1>
+    </header>
+    <div class="container">
+        <form id="notesForm">
+            <form>
+                <div id="left">
+                    <label for="standard">Select Standard:</label>
+                    <select id="standard">
+                        <option value="1st">1st Standard</option>
+                        <option value="2nd">2nd Standard</option>
+                        <option value="3rd">3rd Standard</option>
+                        <option value="4th">4th Standard</option>
+                        <option value="5th">5th Standard</option>
+                        <option value="7th">7th Standard</option>
+                        <option value="8th">8th Standard</option>
+                        <option value="9th">9th Standard</option>
+                        <option value="10th">10th Standard</option>
+                    </select>
+
+                    <label for="subject">Select Division:</label>
+                    <select id="subject">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+                    <div class="right">
+                        <button type="button" class="show-button" onclick="showDetails()">Show Details</button>
+                    </div>
+                </div>
+                <!-- Your form content here -->
+
+                <div id="notesTable" class="hidden">
+                    <table id="studentTable">
+                        <tr>
+                            <th>SR. NO</th>
+                            <th>STUDENT NAME</th>
+                            <th>MOBILE NUMBER</th>
+                            <th>ATTENDANCE</th>
+                            <th>DIVISION</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>AYUSH</td>
+                            <td>5463712815</td>
+                            <td>35% </td>
+                            <td>A DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>YUG</td>
+                            <td>9563828633</td>
+                            <td>100%</td>
+                            <td>A DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>SOYAM</td>
+                            <td>5397569213</td>
+                            <td>65%</td>
+                            <td>A DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>AYUSH </td>
+                            <td>9878864628</td>
+                            <td>50%</td>
+                            <td>B DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>VIRAT </td>
+                            <td>9757836583</td>
+                            <td>100%</td>
+                            <td>B DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>SMRITI</td>
+                            <td>5498545334</td>
+                            <td>75%</td>
+                            <td>B DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>SAHIL</td>
+                            <td>9567989663</td>
+                            <td>46%</td>
+                            <td>B DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>MAYA </td>
+                            <td>5397888646</td>
+                            <td>79%</td>
+                            <td>C DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>IMRAN </td>
+                            <td>9899588628</td>
+                            <td>89%</td>
+                            <td>C DIVISION</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>VIDYA </td>
+                            <td>9757836583</td>
+                            <td>93%</td>
+                            <td>C DIVISION</td>
+                        </tr>
+                    </table>
+                    <!-- Your table content here -->
+                </div>
+    </div>
+
+    <script>
+        function showDetails() {
+            // Get references to the form and table elements
+            var form = document.getElementById('attendanceform');
+            var table = document.getElementById('notesTable');
+
+            // Toggle the visibility of the form and table
+            table.classList.remove('hidden');
+
+        }
+        function openFile(value) {
+            console.log(value);
+            // Get references to the form and table elements
+            var file = document.getElementById(value);
+            console.log(file);
+
+            // Toggle the visibility of the form and table
+
+            file.click();
+        }
+        document.getElementById('1st').addEventListener('change', function () {
+            const selectedFile = this.files[0];
+            console.log(selectedFile ? selectedFile.name : '');
+        });
+    </script>
+</body>
+
+</html>

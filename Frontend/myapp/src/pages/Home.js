@@ -23,6 +23,8 @@ import slider7 from "../Images/home-img-slider7.jpg";
 import slider8 from "../Images/home-img-slider8.jpg";
 import slider9 from "../Images/home-img-slider9.jpg";
 import { NavLink } from "react-router-dom";
+import Navbar1 from "../components/Navbar1";
+import Slider from "./Slider";
 
 const Home = () => {
   function showContent(id) {
@@ -71,65 +73,16 @@ const Home = () => {
             </li>
           </ul>
         </div>
-        <Navbar />
+        <Navbar1 />
       </div>
-
-      <div id="slider-container">
-        {/* <img src={board} alt="Image Slider" /> */}
-        <div id="swiper-container">
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={30}
-            loop={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper"
-          >
-            <SwiperSlide>
-              <img src={slider1} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider2} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider3} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider4} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider5} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider6} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider7} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider8} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-            <SwiperSlide>
-              <img src={slider9} alt="Image Slider" className="imgs" />
-            </SwiperSlide>
-
-          </Swiper>
-        </div>
-      </div>
+      <Slider />
 
       {/* About */}
-      <div className='about_container'>
-        <header>
+      <div className='about_container' id="about_container">
+        <div className="about_header">
           <h1>About Us</h1>
-        </header>
-        <div className="container">
+        </div>
+        <div className="about-container">
           <div className="buttons-container">
             <button className="button" onClick={() => showContent('Overview')}>Overview</button>
             <button className="button" onClick={() => showContent('History')}>History</button>
@@ -137,29 +90,12 @@ const Home = () => {
           </div>
           <div id="Overview" className="content-container active">
             <h2>Overview</h2>
-            <p>Karmaveer Bhaurao Patil School-Sion Salesians has a rich history that traces back to its inception on May
-              16, 1928. Originally managed by the Salesians, the school was initially located in a rented building
-              named "Tardeo Castle." The management takeover marked a significant shift in staff and administration,
-              with the new school year in 1928 seeing a complete change in personnel.
-              Under the leadership of Fr. Joseph Hauber, Fr. Austin Oehlert, Bro. William Haughey, and Bro. Michael
-              Devalle, the school underwent transformations. In June 1930, the institution changed its name to Don
-              Bosco High School, and in 1932, Fr. Adolf Tornquist succeeded Fr. Hauber as the Rector.
-              In 1937, Rev. Fr. Aurelius Maschio took charge as the Superior and initiated plans to secure a spacious
-              plot in Matunga. Through fundraising efforts and approvals from the Superior Council, the school
-              acquired a plot, and by September 1940, it shifted from Tardeo Castle to 'Hilltop' on Carmichael Road.
-              The focus then shifted to developing the Matunga site, and on March 19, 1941, the foundation stone for
-              the new building was blessed and laid.
-              By October 31, 1941, the school had moved into the partially completed building in Matunga. On January
-              31, 1942, the premises were officially inaugurated, marking the beginning of the secondary section of
-              Don Bosco, Matunga. The primary section building's foundation stone was blessed and laid on January 31,
-              1950, and completed in time for the new school year in June 1951.
-              During the Rectorship of Fr. M. CasaroUi (1952-1958), the Shrine of Don Bosco’s Madonna was initiated
-              and completed by Fr. Maschio. Fr. Hubert Roasario succeeded him as the Rector and was later elected
-              Bishop of Dibrugarh. On November 28, 1958, during the consecration of the new Church, Bishop D’Rosario
-              consecrated eight beautiful altars of the Church and the Crypt.
-              In January 1965, under the leadership of Fr. John Giacomello and Rev. Fr. Ignatius Rubio, the present
-              boarding house was constructed. The school has continued to evolve and contribute to the education and
-              development of students, carrying forward the legacy established by its dedicated founders and leaders.
+            <p>
+              "Karmaveer Bhaurao Patil Vidyalaya," under the stewardship of Eklavya Shikshan Sadhana, commenced its journey in the educational realm in the academic year 1979-80. The inception saw the enrollment of 12 students in the Iyanta Pradiche and 15 in the Pvehche sections, culminating in a total of 37 budding learners. This marked the genesis of 37 Vidya-Ryawar schools, a testament to the school's commitment to educational excellence.
+
+              Subsequently, in response to parental aspirations and societal demands, the primary department was inaugurated in 1994. This pivotal step laid the foundation for further growth and evolution. The English medium section was introduced in 2003-2004, broadening the scope of education and enhancing the school's reach and impact. The secondary department followed suit in 2005-09, completing the spectrum of educational offerings.
+
+              The journey of Karmaveer Bhaurao Patil Vidyalaya has been marked by a steady rise in enrollment, with the Marathi medium currently boasting a robust 2230 students. This impressive figure is a testament to the school's commitment to providing quality education. Despite a slight numerical dip projected for the 2022-23 academic year, the institution's qualitative standards continue to soar. Both mediums, Marathi and English, have achieved a remarkable 100% pass rate, underscoring the school's unwavering dedication to academic excellence.
             </p>
           </div>
           <div id="History" className="content-container">
@@ -212,11 +148,11 @@ const Home = () => {
       </div>
 
       {/* Contact  */}
-      <div className='contact_container'>
-        <header>
+      <div className='contact_container' id="contact_container">
+        <div className="contact_header">
           <h1>Contact Us</h1>
-        </header>
-        <div id="container">
+        </div>
+        <div id="contact-container">
           <div id="left">
             <h1>Contact Us</h1><br />
             <p><i className="fa-solid fa-envelope" />info@collegesearch.in</p>

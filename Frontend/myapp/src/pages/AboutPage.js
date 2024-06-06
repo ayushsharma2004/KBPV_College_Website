@@ -15,11 +15,11 @@ const AboutPage = () => {
     }
     return (
         <>
-            <div className='about_container'>
-                <header>
-                    <h1>About Us</h1>
-                </header>
-                <div className="container">
+            <div className='about_container' id='about_container'>
+                <div className='header'>
+                    <h1> Us</h1>
+                </div>
+                <div className="about-container">
                     <div className="buttons-container">
                         <button className="button" onClick={() => showContent('Overview')}>Overview</button>
                         <button className="button" onClick={() => showContent('History')}>History</button>

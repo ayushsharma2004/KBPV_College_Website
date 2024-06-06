@@ -104,6 +104,7 @@ export const viewStudentController = async (req, res) => {
         const studStandard = querySnapshot.docs.map(doc => ({
             data: doc.data()
         }));
+        console.log(studStandard);
         // const studStandards = studStandard.docs;
         // console.log(studStandards[0]);
         // console.log(studStandard);

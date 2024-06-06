@@ -1,0 +1,158 @@
+.attendance_container {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .arrow {
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 5px 5px;
+        /* margin: 1px 6px; */
+    }
+
+    .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+
+    }
+
+    body {
+
+        margin: 0;
+        padding: 0;
+    }
+
+    #attendance_container {
+        display: none;
+    }
+
+    header {
+        background-color: #4CAF50;
+        display: flex;
+        align-items: center;
+        /* justify-content: space-between; */
+        height: 60px;
+    }
+
+    .back-btn {
+        width: 44px;
+        height: 44px;
+        margin-left: 12px;
+        background: #4CAF50;
+        border-radius: 50%;
+        padding: 8px 10px;
+        border: none;
+    }
+
+    .back-btn:hover {
+        background-color: #2d9431;
+    }
+
+    .back-btn:active {
+        background-color: #2d9431;
+        scale: -0.9;
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+    }
+
+    h1 {
+        text-align: left;
+        padding-left: 30px;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+
+    label {
+        /* margin-top: 10px; */
+        padding-right: 4px;
+        padding-left: 24px;
+        display: inline-block;
+    }
+
+    select,
+    button {
+        margin-top: 5px;
+        display: inline-block;
+        padding: 8px 12px;
+        border: 1px solid #666666;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .attendance_table {
+        width: 100vw;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    table {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 60%;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        width: 25%;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+        width: 20%;
+    }
+
+    button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        border: none;
+    }
+
+    button:hover {
+        background-color: #458ea0;
+    }
+
+    button {
+        margin-left: 10px;
+    }
+
+    /* Optional: Style for checkboxes */
+    input[type="checkbox"] {
+        margin-top: 0;
+    }
+
+    h2 {
+        padding: 20px;
+        color: green;
+    }
+
+    form {
+        display: flex;
+        align-items: baseline;
+        /* justify-content: center; */
+    }
+
+    .container {
+        display: flex;
+        background-color: white;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+    }
+}

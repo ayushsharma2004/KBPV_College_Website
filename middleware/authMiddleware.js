@@ -6,6 +6,7 @@ const db = admin.firestore();
 export const requireSignIn = async (req, res, next) => {
     try {
         const token = req.headers.authorization; // Get the token from the request headers
+        console.log(token);
         if (!token) {
             return res.status(401).json({
                 success: false,
@@ -30,9 +31,9 @@ export const requireSignIn = async (req, res, next) => {
 //admin access
 export const isAdmin = async (req, res, next) => {
     try {
-        const { admin_phone } = req.body;
-        const user = await readSingleData(process.env.teachersCollectionName, admin_phone);
-        if (user.role !== 2) {
+        const { phone, role } = req.body;
+        const user = await readSingleData(process.env.teachersCollectionName, phone);
+        if (role !== 2) {
             return res.status(401).send({
                 success: false,
                 message: 'Unauthorized Access',
@@ -53,10 +54,10 @@ export const isAdmin = async (req, res, next) => {
 //admin access
 export const isTeacher = async (req, res, next) => {
     try {
-        const { phone } = req.body;
+        const { phone, role } = req.body;
         const user = await readSingleData(process.env.teachersCollectionName, phone);
         console.log(user);
-        if (user.role !== 1) {
+        if (!(role >= 1)) {
             return res.status(401).send({
                 success: false,
                 message: 'Unauthorized Access',

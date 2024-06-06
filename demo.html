@@ -1,4 +1,4 @@
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -321,31 +321,23 @@
             <!-- Your table content here -->
         </div>
     </div>
-
     <script>
-        function showNotes() {
-            // Get references to the form and table elements
-            var form = document.getElementById('notesForm');
-            var table = document.getElementById('notesTable');
+        import { OpenAI } from 'openai';
+        const openai = new OpenAI({ apiKey: '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', dangerouslyAllowBrowser: true });
+        // console.log(openai);
+        var completion = 1;
+        async function main() {
+            completion = await openai.chat.completions.create({
+                messages: [
+                    { role: "system", content: "You are a helpful assistant." },
+                    { role: "user", content: "Hii i am aryan" }
+                ],
+                model: "gpt-3.5-turbo",
+            });
 
-            // Toggle the visibility of the form and table
-            table.classList.remove('hidden');
-
+            console.log(completion.choices[0]);
         }
-        function openFile(value) {
-            console.log(value);
-            // Get references to the form and table elements
-            var file = document.getElementById(value);
-            console.log(file);
-
-            // Toggle the visibility of the form and table
-
-            file.click();
-        }
-        document.getElementById('1st').addEventListener('change', function () {
-            const selectedFile = this.files[0];
-            console.log(selectedFile ? selectedFile.name : '');
-        });
+        main();
     </script>
 </body>
 

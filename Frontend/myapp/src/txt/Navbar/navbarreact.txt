@@ -1,0 +1,38 @@
+import React from "react";
+import logo from "../Images/schl-logo.png";
+import { NavLink } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Dropdown from "react-bootstrap/Dropdown";
+
+const Navbar = () => (
+  <>
+    <div className="nav">
+      <div id="logo">
+        <NavLink to="/">
+          {/* <img src="../Images/schl-logo.png" alt="logo" /> */}
+          <img src={logo} alt="logo" />
+        </NavLink>
+      </div>
+      <div id="nav-links">
+        <ul>
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="#">Our Courses</NavLink>
+          </li>
+          <li>
+            <NavLink to="/about">About Us</NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact">Contact us</NavLink>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </>
+);
+
+export default Navbar;

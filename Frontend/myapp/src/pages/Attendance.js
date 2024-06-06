@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios';
 import '../Styles/attendance.css'
+import { useNavigate } from 'react-router-dom';
 
 const Attendance = () => {
+    const [getData, setGet] = useState(null);
+    const navigate = useNavigate();
+    // const [saveData, setSave] = useState(null);
     var i;
     var studentData;
     var name;
@@ -27,6 +31,7 @@ const Attendance = () => {
                 }
             );
             data = response.data.studStandard;
+            setGet(data);
             console.log(data);
             data.forEach((student, index) => {
                 i = Number(Number(index) + Number(1));
@@ -70,20 +75,26 @@ const Attendance = () => {
             var data = response.data;
             console.log(data);
             getAttendance();
+            window.location.reload();
+            alert('Attendance recorded');
         } catch (error) {
             console.error('Error uploading file:', error);
         }
     }
+
+    function BackNavigate() {
+        navigate('/');
+    }
     return (
         <>
             <div className='attendance_container'>
-                <header>
-                    <button className="back-btn">
+                <div className='attendance_header'>
+                    <button className="back-btn" onClick={BackNavigate}>
                         <i className="arrow left" />
                     </button>
                     <h1>Attendance</h1>
-                </header>
-                <div className="container">
+                </div>
+                <div className="select_container">
                     <h4>Select Class</h4>
                     <form>
                         <label id="selectOption">Standard:</label>
@@ -111,7 +122,7 @@ const Attendance = () => {
                     <button onClick={() => getAttendance()} type="submit">Submit </button>
                 </div>
                 <div className="attendance_table" id="attendance_container">
-                    {data ? (
+                    {getData ? (
                         <>
                             <table id="attendanceTable">
                                 <thead>
@@ -125,21 +136,24 @@ const Attendance = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data.map((student, index) => (
+                                    {getData.map((student, index) => (
                                         <tr key={index}>
-                                            <td>{i}</td>
-                                            <td>{name}</td>
-                                            <td>{roll_id}</td>
-                                            <td>{attendance}%</td>
-                                            <td><input type="checkbox" id={phone} name="checkbox1" value="1" /></td>
-                                            <td>{phone}</td>
+                                            <td>{index + 1}</td>
+                                            <td>{student.data.fname} {student.data.lname}</td>
+                                            <td>{student.data.roll_id}</td>
+                                            <td>{parseFloat(student.data.attendance.percentage).toFixed(2)}%</td>
+                                            <td><input type="checkbox" id={student.data.phone} name="checkbox1" value="1" /></td>
+                                            <td>{student.data.phone}</td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                             <button type="submit" onClick={() => saveAttendance()}>Save </button>
                         </>
-                    ) : <></>}
+                    ) : (
+                        <p>No data available</p>
+                    )}
+
                 </div>
             </div>
 

@@ -230,3 +230,57 @@ export const uploadNotesController = async (req, res) => {
         });
     }
 };
+
+//view student attendance
+export const uploadTimetableController = async (req, res) => {
+    try {
+        const {
+            standard, url
+        } = req.body;
+
+        if (!standard) {
+            return res.send({ message: 'Standard is not provided' });
+        }
+        if (!url) {
+            return res.send({ message: 'Url is not provided' });
+        }
+        const data = {
+            standard: standard,
+            url: url
+        }
+        console.log(url, standard);
+        const syllabus = await createData(process.env.timetableCollectionName, standard, data);
+        res.status(201).send({
+            success: true,
+            message: 'Timetable uploaded successfully',
+            timetableUrl: url,
+        });
+    } catch (error) {
+        console.error('Error in registration:', error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error in registration',
+            error: error.message,
+        });
+    }
+};
+
+
+//view student attendance
+export const readTimetableController = async (req, res) => {
+    try {
+        const timetable = await readAllData(process.env.timetableCollectionName);
+        res.status(201).send({
+            success: true,
+            message: 'timetable readed successfully',
+            timetable: timetable,
+        });
+    } catch (error) {
+        console.error('Error in reading timetable:', error);
+        return res.status(500).send({
+            success: false,
+            message: 'Error in reading timetable',
+            error: error.message,
+        });
+    }
+};
